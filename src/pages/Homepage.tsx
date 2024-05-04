@@ -39,7 +39,9 @@ const Homepage: React.FC = () => {
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append("file", selectedFile);
+      if (selectedFile) {
+        formData.append("file", selectedFile);
+      }
       const metadata = JSON.stringify({
         name: newFolderName,
       });
