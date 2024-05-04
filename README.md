@@ -27,8 +27,8 @@ This Online Drive application is designed to mimic the functionalities of Google
 - Users are automatically logged out upon disconnecting their wallet or changing the connected address.
 
 ## Dependencies
-- Shadcn - For UI
-- React`
+- Shadcn - `For UI`
+- React
 - React Router: `For navigation`
 - react-hot-toast: `For toast messages`
 - react-icons: `For icons`
