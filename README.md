@@ -15,8 +15,9 @@ This Online Drive application is designed to mimic the functionalities of Google
 1. Clone the repository: `git clone https://github.com/rishabh6115/LYNC-React-Developer-Task-2.git`
 2. Navigate to the project directory:
 3. Install dependencies: `npm install`
-4. Start the development server: `npm run dev`
-5. Open your browser and visit `http://localhost:5173` to access the application.
+4. Please keep the .env received in the project parent directory.
+5. Start the development server: `npm run dev`
+6. Open your browser and visit `http://localhost:5173` to access the application.
 
 ## Usage Guide
 - Upon accessing the application, users can navigate through folders by double-clicking on them.
