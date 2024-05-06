@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 const Wrapper = () => {
   return (
-    <div className="font-bold max-w-5xl m-auto mt-10 ">
+    <div className="font-bold max-w-7xl m-auto mt-10 ">
       <Navbar />
       <div className="flex mt-4 gap-4">
         <Sidebar />

@@ -164,13 +164,13 @@ const Homepage: React.FC = () => {
   };
 
   return (
-    <div className="">
-      <h1 className="text-2xl">Online Drive</h1>
-      <div className="flex mt-2 gap-4 flex-wrap">
+    <div className="mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Online Drive</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {foundFolder?.data?.map((item: folderData, i: number) => (
           <div
             key={i}
-            className="flex flex-col items-center border px-6 p-2  border-gray-300 rounded-lg"
+            className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-between cursor-pointer transition duration-300 transform hover:scale-105"
           >
             <div
               onDoubleClick={() => {
@@ -184,45 +184,50 @@ const Homepage: React.FC = () => {
                 nav(`/${item.name}`);
                 setBreadcrumbs([...breadcrumbs, item.name]);
               }}
-              className="flex flex-col items-center gap-1 cursor-pointer"
+              className="flex items-center justify-center mb-4"
             >
               {item.type === "folder" ? (
-                <FaFolder className="text-5xl" />
+                <FaFolder className="text-5xl text-blue-500" />
               ) : (
-                <FaFile className="text-5xl" />
+                <FaFile className="text-5xl text-blue-500" />
               )}
-              <p>{item.name}</p>
             </div>
-            <div className="flex gap-1 mt-2 cursor-pointer">
-              <MdEdit
-                className="text-green-400 text-2xl font-bold"
-                onClick={() => handleEdit(i)}
-              />
-              <MdDelete
-                className="text-red-500 text-2xl font-bold"
-                onClick={() => handleDelete(i)}
-              />
+            <div className="flex items-center justify-between">
+              <p className="text-lg font-medium">{item.name}</p>
+              <div className="flex gap-1">
+                <MdEdit
+                  className="text-green-400 text-2xl cursor-pointer"
+                  onClick={() => handleEdit(i)}
+                />
+                <MdDelete
+                  className="text-red-500 text-2xl cursor-pointer"
+                  onClick={() => handleDelete(i)}
+                />
+              </div>
             </div>
           </div>
         ))}
 
-        <div className="flex flex-col gap-0.5 items-center justify-center border border-gray-500 border-dashed px-8 py-6 rounded-lg">
-          <button
-            onClick={() => {
-              setIsDialogOpen(true);
-              setAddType("folder");
-            }}
-          >
-            <TiFolderAdd className="text-3xl" />
-          </button>
-          <button
-            onClick={() => {
-              setIsDialogOpen(true);
-              setAddType("file");
-            }}
-          >
-            <AiOutlineFileAdd className="text-3xl" />
-          </button>
+        <div
+          className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-center items-center cursor-pointer transition duration-300 transform hover:scale-105"
+          onClick={() => {
+            setIsDialogOpen(true);
+            setAddType("folder");
+          }}
+        >
+          <TiFolderAdd className="text-5xl text-blue-500" />
+          <p className="text-lg font-medium mt-2">New Folder</p>
+        </div>
+
+        <div
+          className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-center items-center cursor-pointer transition duration-300 transform hover:scale-105"
+          onClick={() => {
+            setIsDialogOpen(true);
+            setAddType("file");
+          }}
+        >
+          <AiOutlineFileAdd className="text-5xl text-blue-500" />
+          <p className="text-lg font-medium mt-2">New File</p>
         </div>
       </div>
 
