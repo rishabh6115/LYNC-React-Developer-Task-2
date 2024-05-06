@@ -246,7 +246,9 @@ const Homepage: React.FC = () => {
             {addType === "file" && (
               <input type="file" onChange={changeHandler} />
             )}
-            <Button onClick={handleCreate}>Create</Button>
+            <Button onClick={handleCreate} className="bg-blue-600">
+              Create
+            </Button>
           </DialogContent>
         ) : (
           <DialogContent>Loading...</DialogContent>
