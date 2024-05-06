@@ -1,32 +1,38 @@
-# React + TypeScript + Vite
+# Online Drive Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This Online Drive application is designed to mimic the functionalities of Google Drive with additional features such as Web3 interactions for enhanced security and decentralization. Users can create, upload, delete, rename files and folders, browse through the file structure, authenticate using Ethereum wallet addresses, and store files using IPFS (Pinata).
 
-Currently, two official plugins are available:
+## Key Features
+- **Browsing and Creating**: Users can create new files and folders, upload files, delete existing files or folders, rename files or folders, and browse through the file structure.
+- **Web3 Interactions**: Blockchain-based user authentication using Ethereum wallet addresses, decentralized storage solutions using IPFS.
+- **Sidebar and Breadcrumbs**: Intuitive navigation through a sidebar displaying folders and files, along with breadcrumbs and a back button.
+- **Duplicate Prevention**: Logic implemented to prevent duplicate file and folder creation.
+- **Wallet Address Display**: Display of connected wallet address with the ability to copy it.
+- **Automatic Logout**: Users are logged out upon disconnecting their wallet or changing the connected address.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup Instructions
+1. Clone the repository: `git clone https://github.com/rishabh6115/LYNC-React-Developer-Task-2.git`
+2. Navigate to the project directory:
+3. Install dependencies: `npm install`
+4. Please keep the .env received in the project parent directory.
+5. Start the development server: `npm run dev`
+6. Open your browser and visit `http://localhost:5173` to access the application.
 
-## Expanding the ESLint configuration
+## Usage Guide
+- Upon accessing the application, users can navigate through folders by double-clicking on them.
+- To create a new file or folder, click on the respective buttons and provide the necessary details.
+- To upload a file, click on the upload button and select the file from your local system.
+- To delete or rename a file or folder, click on the respective icons and select the desired action from the context menu.
+- Users can authenticate using their Ethereum wallet addresses. The connected wallet address is displayed, and users can copy it by clicking on it.
+- Users are automatically logged out upon disconnecting their wallet or changing the connected address.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Dependencies
+- Shadcn - `For UI`
+- React
+- React Router: `For navigation`
+- react-hot-toast: `For toast messages`
+- react-icons: `For icons`
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-"# LYNC-React-Developer-Task-2" 
-"# LYNC-React-Developer-Task-2" 
