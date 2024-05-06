@@ -30,7 +30,6 @@ const Homepage: React.FC = () => {
     }
   };
   const [loading, setLoading] = useState<boolean>(false);
-  console.log(object);
 
   const foundFolder = object.find(
     (item: FolderItem) => item.path === location.pathname

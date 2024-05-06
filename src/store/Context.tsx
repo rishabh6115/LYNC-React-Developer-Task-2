@@ -37,7 +37,7 @@ export const ContextProvider: React.FC<ProviderProps> = (props) => {
           type: "folder",
         },
         {
-          name: "file.jpg",
+          name: "file.doc",
           type: "file",
           IpfsHash: "QmNUpjc43kJ9QzEV2e7XjX7iUMk7DMjf5xaKnAVgpD291A",
         },
