@@ -30,6 +30,7 @@ const Homepage: React.FC = () => {
     }
   };
   const [loading, setLoading] = useState<boolean>(false);
+  console.log(object);
 
   const foundFolder = object.find(
     (item: FolderItem) => item.path === location.pathname
@@ -91,6 +92,13 @@ const Homepage: React.FC = () => {
         );
         return;
       }
+      if (addType === "file") {
+        if (!selectedFile) {
+          toast.error("Please select a file to upload");
+          return;
+        }
+      }
+
       if (addType === "file" && selectedFile) {
         const returedData = await handleSubmission(newFolderName);
 
@@ -98,6 +106,12 @@ const Homepage: React.FC = () => {
           name: newFolderName,
           type: addType as fileType,
           IpfsHash: returedData.IpfsHash,
+        });
+      }
+      if (addType === "folder") {
+        foundFolder?.data.push({
+          name: newFolderName,
+          type: addType as fileType,
         });
       }
       setObject(obj);
@@ -141,12 +155,10 @@ const Homepage: React.FC = () => {
   };
 
   const handleDownload = async (fileUrl: string, fileName: string) => {
-    // window.open(fileUrl, "_blank");
     const link = document.createElement("a");
     link.href = fileUrl;
     link.download = fileName;
-    link.target = "_blank"; // Ensure the file is downloaded instead of opened
-    link.rel = "noopener noreferrer"; // Security measure
+    link.target = "_blank";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

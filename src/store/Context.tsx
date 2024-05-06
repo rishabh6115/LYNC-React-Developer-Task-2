@@ -40,7 +40,6 @@ export const ContextProvider: React.FC<ProviderProps> = (props) => {
           name: "file.jpg",
           type: "file",
           IpfsHash: "QmNUpjc43kJ9QzEV2e7XjX7iUMk7DMjf5xaKnAVgpD291A",
-          // IpfsHash: "QmVUq2DugrobJ928EnbsNzHGGFNDVZaLoW5BdEpXYXMCz2",
         },
       ],
     },
