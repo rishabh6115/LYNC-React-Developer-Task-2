@@ -21,6 +21,7 @@ const Navbar = () => {
             navigator.clipboard.writeText(currentAccount);
             toast.success("Copied to clipboard");
           }}
+          className="font-bold "
         >
           {currentAccount}
         </p>

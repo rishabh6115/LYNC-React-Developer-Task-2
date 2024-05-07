@@ -37,7 +37,7 @@ const Breadcrumbs = () => {
           <BreadcrumbItem>
             <BreadcrumbLink
               onClick={() => {
-                nav("/");
+                nav("/dashboard");
               }}
               className="cursor-pointer"
             >
@@ -51,7 +51,7 @@ const Breadcrumbs = () => {
                 <BreadcrumbLink
                   onClick={() => {
                     if (location.pathname === `/${item}`) return;
-                    nav(`/${item}`);
+                    nav(`/dashboard/${item}`);
                     const index = breadcrumbs.flat().indexOf(item);
                     setBreadcrumbs(breadcrumbs.slice(0, index + 1));
                   }}

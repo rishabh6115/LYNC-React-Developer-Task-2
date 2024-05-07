@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
-    <div className="min-w-[250px] border rounded-lg bg-gray-100 shadow-lg py-4">
+    <div className=" min-h-[100vh] border  bg-gray-100 shadow-lg py-4">
       <div className="flex justify-between items-center mb-4 px-4">
         <h2 className="text-lg font-bold text-gray-800">Navigation Bar</h2>
         <div
@@ -41,7 +41,7 @@ const Sidebar = () => {
                     location.pathname === `/${item.name}`
                   )
                     return;
-                  nav(`/${item.name}`);
+                  nav(`/dashboard/${item.name}`);
                   setBreadcrumbs([item.name]);
                 }}
               >
@@ -66,7 +66,7 @@ const Sidebar = () => {
                             location.pathname === `/${subItem.name}`
                           )
                             return;
-                          nav(`/${subItem.name}`);
+                          nav(`/dashboard/${subItem.name}`);
                           setBreadcrumbs([item.name, subItem.name]);
                         }}
                       >
