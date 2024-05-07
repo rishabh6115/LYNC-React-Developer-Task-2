@@ -19,7 +19,7 @@ import { FolderItem, fileType, folderData } from "@/types/types";
 const Homepage: React.FC = () => {
   const { object, setObject, breadcrumbs, setBreadcrumbs } = useFolderContext();
   const [addType, setAddType] = useState<string>("");
-  const [newFolderName, setNewFolderName] = useState<string>("Untitled");
+  const [newFolderName, setNewFolderName] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const location = useLocation();
   const nav = useNavigate();
@@ -79,13 +79,14 @@ const Homepage: React.FC = () => {
       const foundName = foundFolder?.data.find(
         (item: folderData) => item.name === newFolderName
       );
-      const trimmedPath = location.pathname.replace(/^\//, "");
+      const splittedPath = location.pathname.split("/");
+      const parentFolderName = splittedPath.pop();
 
       if (foundName) {
         toast.error("Folder/file already exists in this directory");
         return;
       }
-      if (trimmedPath === newFolderName) {
+      if (parentFolderName === newFolderName) {
         toast.error(
           "Cannot create folder/file with the same name as the parent folder"
         );
@@ -103,15 +104,18 @@ const Homepage: React.FC = () => {
           name: newFolderName,
           type: addType as fileType,
           IpfsHash: returedData.IpfsHash,
+          parentFolder: "/" + parentFolderName,
         });
       } else {
         foundFolder?.data.push({
           name: newFolderName,
           type: addType as fileType,
+          parentFolder: "/" + parentFolderName,
+          nestedItems: 0,
         });
       }
       setObject(obj);
-      setNewFolderName("Untitled");
+      setNewFolderName("");
       setIsDialogOpen(false);
     }
   };
@@ -185,7 +189,18 @@ const Homepage: React.FC = () => {
               {item.type === "folder" ? (
                 <FaFolder className="text-5xl text-blue-500" />
               ) : (
-                <FaFile className="text-5xl text-blue-500" />
+                <>
+                  <img
+                    src={`${import.meta.env.VITE_GATEWAY_URL}/ipfs/${
+                      item.IpfsHash
+                    }`}
+                    alt="image"
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
+                  <FaFile className="text-5xl text-blue-500" />
+                </>
               )}
             </div>
             <div className="flex items-center justify-between">

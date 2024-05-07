@@ -6,6 +6,8 @@ export type folderData = {
   IpfsHash?: string;
   PinSize?: number;
   Timestamp?: string;
+  parentFolder: string;
+  nestedItems?: number;
 };
 
 export interface FolderItem {

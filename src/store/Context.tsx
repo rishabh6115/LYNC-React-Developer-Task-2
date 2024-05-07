@@ -27,28 +27,37 @@ export const ContextProvider: React.FC<ProviderProps> = (props) => {
         {
           name: "Repos",
           type: "folder",
+          parentFolder: "/dashboard",
+          nestedItems: 1,
         },
         {
           name: "Music",
           type: "folder",
+          parentFolder: "/dashboard",
+          nestedItems: 0,
         },
         {
           name: "Docs",
           type: "folder",
+          parentFolder: "/dashboard",
+          nestedItems: 0,
         },
         {
           name: "file.doc",
           type: "file",
           IpfsHash: "QmNUpjc43kJ9QzEV2e7XjX7iUMk7DMjf5xaKnAVgpD291A",
+          parentFolder: "/dashboard",
         },
       ],
     },
     {
-      path: "/Repos",
+      path: "/dashboard/Repos",
       data: [
         {
           name: "Sub-folder-repo",
           type: "folder",
+          parentFolder: "/Repos",
+          nestedItems: 0,
         },
       ],
     },

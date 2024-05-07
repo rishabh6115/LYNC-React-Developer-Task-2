@@ -19,6 +19,7 @@ const Breadcrumbs = () => {
     if (location.pathname === "/dashboard") {
       setBreadcrumbs([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   return (
