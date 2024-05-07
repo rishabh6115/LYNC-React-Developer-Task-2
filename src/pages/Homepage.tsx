@@ -196,7 +196,8 @@ const Homepage: React.FC = () => {
                     }`}
                     alt="image"
                     onError={(e) => {
-                      e.target.style.display = "none";
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
                     }}
                   />
                   <FaFile className="text-5xl text-blue-500" />
