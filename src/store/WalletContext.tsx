@@ -21,19 +21,22 @@ export const WalletContextProvider: React.FC<ProviderProps> = ({
 }) => {
   const [currentAccount, setCurrentAccount] = useState<string>("");
 
-  const checkWalletConnection = async () => {
+  const checkWalletConnection = async (): Promise<boolean> => {
     try {
       if (!ethereum) {
         alert("Make sure you have MetaMask!");
-        return;
+        return false;
       }
       const accounts = await ethereum.request({ method: "eth_accounts" });
       if (accounts.length) {
         const account = accounts[0];
         setCurrentAccount(account);
       }
+
+      return true;
     } catch (error) {
       console.log(error);
+      return false;
     }
   };
 
@@ -61,17 +64,20 @@ export const WalletContextProvider: React.FC<ProviderProps> = ({
   };
 
   useEffect(() => {
-    checkWalletConnection();
+    const checkConnection = checkWalletConnection();
+    if (!checkConnection) {
+      return;
+    }
 
-    ethereum.on("accountsChanged", handleAccountsChanged);
+    ethereum?.on("accountsChanged", handleAccountsChanged);
 
-    ethereum.on("disconnect", () => {
+    ethereum?.on("disconnect", () => {
       setCurrentAccount("");
     });
 
     return () => {
-      ethereum.removeAllListeners("accountsChanged");
-      ethereum.removeAllListeners("disconnect");
+      ethereum?.removeAllListeners("accountsChanged");
+      ethereum?.removeAllListeners("disconnect");
     };
   }, []);
 

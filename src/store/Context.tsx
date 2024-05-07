@@ -22,7 +22,7 @@ const FolderContext = createContext<ContextValue | null>(null);
 export const ContextProvider: React.FC<ProviderProps> = (props) => {
   const initialData: FolderItem[] = [
     {
-      path: "/",
+      path: "/dashboard",
       data: [
         {
           name: "Repos",

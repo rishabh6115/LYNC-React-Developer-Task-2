@@ -19,7 +19,7 @@ import { FolderItem, fileType, folderData } from "@/types/types";
 const Homepage: React.FC = () => {
   const { object, setObject, breadcrumbs, setBreadcrumbs } = useFolderContext();
   const [addType, setAddType] = useState<string>("");
-  const [newFolderName, setNewFolderName] = useState<string>("");
+  const [newFolderName, setNewFolderName] = useState<string>("Untitled");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const location = useLocation();
   const nav = useNavigate();
@@ -91,14 +91,12 @@ const Homepage: React.FC = () => {
         );
         return;
       }
+
       if (addType === "file") {
         if (!selectedFile) {
           toast.error("Please select a file to upload");
           return;
         }
-      }
-
-      if (addType === "file" && selectedFile) {
         const returedData = await handleSubmission(newFolderName);
 
         foundFolder?.data.push({
@@ -106,15 +104,14 @@ const Homepage: React.FC = () => {
           type: addType as fileType,
           IpfsHash: returedData.IpfsHash,
         });
-      }
-      if (addType === "folder") {
+      } else {
         foundFolder?.data.push({
           name: newFolderName,
           type: addType as fileType,
         });
       }
       setObject(obj);
-      setNewFolderName("");
+      setNewFolderName("Untitled");
       setIsDialogOpen(false);
     }
   };

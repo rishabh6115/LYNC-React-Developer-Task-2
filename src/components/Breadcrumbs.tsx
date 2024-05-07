@@ -16,7 +16,7 @@ const Breadcrumbs = () => {
   const nav = useNavigate();
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/dashboard") {
       setBreadcrumbs([]);
     }
   }, [location]);
