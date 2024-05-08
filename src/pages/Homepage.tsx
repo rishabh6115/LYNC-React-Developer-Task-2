@@ -82,11 +82,13 @@ const Homepage: React.FC = () => {
       const splittedPath = location.pathname.split("/");
       const parentFolderName = splittedPath.pop();
 
+      if (!parentFolderName) return;
+
       if (foundName) {
         toast.error("Folder/file already exists in this directory");
         return;
       }
-      if (parentFolderName === newFolderName) {
+      if (decodeURIComponent(parentFolderName) === newFolderName) {
         toast.error(
           "Cannot create folder/file with the same name as the parent folder"
         );
