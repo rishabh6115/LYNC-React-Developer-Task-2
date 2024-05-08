@@ -56,6 +56,23 @@ const Sidebar = () => {
     return calculateDepth(parentFolderName, currentDepth + 1);
   };
 
+  const findPathToParentFolder = (
+    folderName: string | undefined,
+    path: string[] = []
+  ): string[] => {
+    if (folderName === undefined || folderName === null) return [];
+    const folder = flattedFolders.find((item) => item.name === folderName);
+
+    if (!folder) return [];
+    if (folder.parentFolder === "/dashboard") return path.reverse();
+
+    const parentFolderName = folder.parentFolder.split("/").pop() as string;
+    return findPathToParentFolder(parentFolderName, [
+      ...path,
+      parentFolderName,
+    ]);
+  };
+
   const calculatePadding = (data: folderData) => {
     const calculatedDepth = calculateDepth(data.name);
     const padding = calculatedDepth * 10 + 16;
@@ -71,10 +88,11 @@ const Sidebar = () => {
 
       {flattedFolders.flat().map(
         (item: folderData, index: number) =>
-          condition.includes(item.parentFolder) && (
+          condition.includes(item.parentFolder) &&
+          item.type !== "file" && (
             <div key={index}>
               <div
-                className={` flex items-center justify-between px-4 py-2 cursor-pointer transition duration-300 ${
+                className={` flex items-center justify-between px-4 py-2  cursor-pointer transition duration-300 ${
                   item.type === "folder"
                     ? "bg-blue-500 text-white hover:bg-blue-600"
                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -99,7 +117,9 @@ const Sidebar = () => {
                   } else {
                     setCondition([...clonedData, `/${item.name}`]);
                   }
-                  setBreadcrumbs([item.name]);
+                  const pathToParent = findPathToParentFolder(item.name);
+
+                  setBreadcrumbs([...pathToParent, item.name]);
                 }}
               >
                 <p>{item.name}</p>
