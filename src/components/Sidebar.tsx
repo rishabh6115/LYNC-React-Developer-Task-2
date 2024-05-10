@@ -1,6 +1,6 @@
 import { useFolderContext } from "@/store/Context";
 import { folderData } from "@/types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -43,35 +43,37 @@ const Sidebar = () => {
     reArrangeItems();
   }, [object]);
 
-  const calculateDepth = (
-    folderName: string | undefined,
-    currentDepth = 0
-  ): number => {
-    const folder = flattedFolders.find((item) => item.name === folderName);
+  const calculateDepth = useMemo(
+    () =>
+      (folderName: string | undefined, currentDepth = 0): number => {
+        const folder = flattedFolders.find((item) => item.name === folderName);
 
-    if (!folder) return 0;
-    if (folder.parentFolder === "/dashboard") return currentDepth;
+        if (!folder) return 0;
+        if (folder.parentFolder === "/dashboard") return currentDepth;
 
-    const parentFolderName = folder.parentFolder.split("/").pop();
-    return calculateDepth(parentFolderName, currentDepth + 1);
-  };
+        const parentFolderName = folder.parentFolder.split("/").pop();
+        return calculateDepth(parentFolderName, currentDepth + 1);
+      },
+    [flattedFolders]
+  );
 
-  const findPathToParentFolder = (
-    folderName: string | undefined,
-    path: string[] = []
-  ): string[] => {
-    if (folderName === undefined || folderName === null) return [];
-    const folder = flattedFolders.find((item) => item.name === folderName);
+  const findPathToParentFolder = useMemo(
+    () =>
+      (folderName: string | undefined, path: string[] = []): string[] => {
+        if (folderName === undefined || folderName === null) return [];
+        const folder = flattedFolders.find((item) => item.name === folderName);
 
-    if (!folder) return [];
-    if (folder.parentFolder === "/dashboard") return path.reverse();
+        if (!folder) return [];
+        if (folder.parentFolder === "/dashboard") return path.reverse();
 
-    const parentFolderName = folder.parentFolder.split("/").pop() as string;
-    return findPathToParentFolder(parentFolderName, [
-      ...path,
-      parentFolderName,
-    ]);
-  };
+        const parentFolderName = folder.parentFolder.split("/").pop() as string;
+        return findPathToParentFolder(parentFolderName, [
+          ...path,
+          parentFolderName,
+        ]);
+      },
+    [flattedFolders]
+  );
 
   const calculatePadding = (data: folderData) => {
     const calculatedDepth = calculateDepth(data.name);
@@ -105,20 +107,7 @@ const Sidebar = () => {
                   )
                     return;
                   nav(`/dashboard/${item.name}`);
-                  const clonedData = [...condition];
-                  const selectedItemIndex = clonedData.indexOf(`/${item.name}`);
-
-                  if (selectedItemIndex !== -1) {
-                    const updatedCondition = clonedData.slice(
-                      0,
-                      selectedItemIndex
-                    );
-                    setCondition(updatedCondition);
-                  } else {
-                    setCondition([...clonedData, `/${item.name}`]);
-                  }
                   const pathToParent = findPathToParentFolder(item.name);
-
                   setBreadcrumbs([...pathToParent, item.name]);
                 }}
               >
@@ -126,9 +115,26 @@ const Sidebar = () => {
                 {(item.nestedItems || 0) > 0 && (
                   <>
                     {!condition.includes(`/${item.name}`) ? (
-                      <FaAngleDown />
+                      <FaAngleDown
+                        onClick={() => {
+                          const clonedData = [...condition];
+                          setCondition([...clonedData, `/${item.name}`]);
+                        }}
+                      />
                     ) : (
-                      <FaAngleUp />
+                      <FaAngleUp
+                        onClick={() => {
+                          const clonedData = [...condition];
+                          const selectedItemIndex = clonedData.indexOf(
+                            `/${item.name}`
+                          );
+                          const updatedCondition = clonedData.slice(
+                            0,
+                            selectedItemIndex
+                          );
+                          setCondition(updatedCondition);
+                        }}
+                      />
                     )}
                   </>
                 )}

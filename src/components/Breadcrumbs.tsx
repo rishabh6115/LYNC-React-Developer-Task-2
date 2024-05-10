@@ -27,7 +27,8 @@ const Breadcrumbs = () => {
       <div
         onClick={() => {
           nav(-1);
-          setBreadcrumbs(breadcrumbs.slice(0, breadcrumbs.length - 1));
+          const clonedBreadcrumbs = [...breadcrumbs];
+          setBreadcrumbs(clonedBreadcrumbs.slice(0, breadcrumbs.length - 1));
         }}
         className="cursor-pointer"
       >
@@ -53,8 +54,8 @@ const Breadcrumbs = () => {
                   onClick={() => {
                     if (location.pathname === `/${item}`) return;
                     nav(`/dashboard/${item}`);
-                    const index = breadcrumbs.flat().indexOf(item);
-                    setBreadcrumbs(breadcrumbs.slice(0, index + 1));
+                    const clonedBreadcrumbs = [...breadcrumbs];
+                    setBreadcrumbs(clonedBreadcrumbs.slice(0, index + 1));
                   }}
                   className={`cursor-pointer ${
                     location.pathname !== `/${item}`

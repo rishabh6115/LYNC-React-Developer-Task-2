@@ -73,53 +73,55 @@ const Homepage: React.FC = () => {
   };
 
   const handleCreate = async () => {
-    if (newFolderName.trim() !== "") {
-      const obj = [...object];
-      const foundFolder = obj.find((item) => item.path === location.pathname);
-      const foundName = foundFolder?.data.find(
-        (item: folderData) => item.name === newFolderName
-      );
-      const splittedPath = location.pathname.split("/");
-      const parentFolderName = splittedPath.pop();
-
-      if (!parentFolderName) return;
-
-      if (foundName) {
-        toast.error("Folder/file already exists in this directory");
-        return;
-      }
-      if (decodeURIComponent(parentFolderName) === newFolderName) {
-        toast.error(
-          "Cannot create folder/file with the same name as the parent folder"
-        );
-        return;
-      }
-
-      if (addType === "file") {
-        if (!selectedFile) {
-          toast.error("Please select a file to upload");
-          return;
-        }
-        const returedData = await handleSubmission(newFolderName);
-
-        foundFolder?.data.push({
-          name: newFolderName,
-          type: addType as fileType,
-          IpfsHash: returedData.IpfsHash,
-          parentFolder: "/" + parentFolderName,
-        });
-      } else {
-        foundFolder?.data.push({
-          name: newFolderName,
-          type: addType as fileType,
-          parentFolder: "/" + parentFolderName,
-          nestedItems: 0,
-        });
-      }
-      setObject(obj);
-      setNewFolderName("");
-      setIsDialogOpen(false);
+    if (newFolderName.trim() === "") {
+      toast.error("Folder/file name cannot be empty");
+      return;
     }
+    const obj = [...object];
+    const foundFolder = obj.find((item) => item.path === location.pathname);
+    const foundName = foundFolder?.data.find(
+      (item: folderData) => item.name === newFolderName
+    );
+    const splittedPath = location.pathname.split("/");
+    const parentFolderName = splittedPath.pop();
+
+    if (!parentFolderName) return;
+
+    if (foundName) {
+      toast.error("Folder/file already exists in this directory");
+      return;
+    }
+    if (decodeURIComponent(parentFolderName) === newFolderName) {
+      toast.error(
+        "Cannot create folder/file with the same name as the parent folder"
+      );
+      return;
+    }
+
+    if (addType === "file") {
+      if (!selectedFile) {
+        toast.error("Please select a file to upload");
+        return;
+      }
+      const returedData = await handleSubmission(newFolderName);
+
+      foundFolder?.data.push({
+        name: newFolderName,
+        type: addType as fileType,
+        IpfsHash: returedData.IpfsHash,
+        parentFolder: "/" + parentFolderName,
+      });
+    } else {
+      foundFolder?.data.push({
+        name: newFolderName,
+        type: addType as fileType,
+        parentFolder: "/" + parentFolderName,
+        nestedItems: 0,
+      });
+    }
+    setObject(obj);
+    setNewFolderName("");
+    setIsDialogOpen(false);
   };
 
   useEffect(() => {
